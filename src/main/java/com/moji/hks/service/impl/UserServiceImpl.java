@@ -8,6 +8,7 @@ import com.moji.hks.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -34,11 +35,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public  List<User> get(User user) {
+    public  User get(User user) {
         UserExample userExample = new UserExample();
         userExample.createCriteria().andNameEqualTo(user.getName()).andPasswordEqualTo(user.getPassword()).andTypeEqualTo(1);
         List<User> users = userMapper.selectByExample(userExample);
-        return users;
+        if (CollectionUtils.isEmpty(users)){
+            return users.get(0);
+        } else {
+            return null;
+        }
+
     }
 
 

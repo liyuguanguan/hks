@@ -1,5 +1,6 @@
 package com.moji.hks.controller;
 
+import com.moji.hks.constant.LoginConstant;
 import com.moji.hks.mybaties.model.User;
 import com.moji.hks.service.UserService;
 import com.moji.hks.util.CodeUtil;
@@ -26,18 +27,18 @@ public class LoginController {
     @ResponseBody
     public LoginResponseDTO hello1(HttpServletRequest request, User user, String code) {
         LoginResponseDTO responseDTO = new LoginResponseDTO();
-        if (!CodeUtil.checkVerifyCode(request,code)) {
-            responseDTO.setCode(201);
+        if (!CodeUtil.checkVerifyCode(request, code)) {
+            responseDTO.setCode(LoginConstant.CODEFALSE);
             responseDTO.setMessage("验证码有误");
             return responseDTO;
         } else {
-            List<User> users = userService.get(user);
-            if (users!=null || users.size()>0){
-                responseDTO.setCode(200);
+            User users = userService.get(user);
+            if (users != null) {
+                responseDTO.setCode(LoginConstant.LOGINSUCCESS);
                 responseDTO.setMessage("登录成功");
-                request.getSession().setAttribute("user",users.get(0));
+                request.getSession().setAttribute("user", users);
             } else {
-                responseDTO.setCode(202);
+                responseDTO.setCode(LoginConstant.USERNAMEPASSFALSE);
                 responseDTO.setMessage("用户名密码错误");
             }
             return responseDTO;
