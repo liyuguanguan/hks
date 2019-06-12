@@ -5,6 +5,7 @@ import com.moji.hks.mybaties.mapper.UserMapper;
 import com.moji.hks.mybaties.model.User;
 import com.moji.hks.mybaties.model.UserExample;
 import com.moji.hks.service.UserService;
+import com.moji.hks.util.MD5Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,9 +36,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public  User get(User user) {
+    public  User getSys(User user) {
         UserExample userExample = new UserExample();
-        userExample.createCriteria().andNameEqualTo(user.getName()).andPasswordEqualTo(user.getPassword()).andTypeEqualTo(1);
+        userExample.createCriteria().andNameEqualTo(user.getName()).andPasswordEqualTo(MD5Util.MD5Encode(user.getPassword())).andTypeEqualTo(0);
         List<User> users = userMapper.selectByExample(userExample);
         if (CollectionUtils.isEmpty(users)){
             return users.get(0);

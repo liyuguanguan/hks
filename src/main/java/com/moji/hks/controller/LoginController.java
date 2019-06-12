@@ -23,7 +23,7 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/dologin",method = RequestMethod.POST)
+    @RequestMapping(value = "/syslogin",method = RequestMethod.POST)
     @ResponseBody
     public LoginResponseDTO hello1(HttpServletRequest request, User user, String code) {
         LoginResponseDTO responseDTO = new LoginResponseDTO();
@@ -32,7 +32,7 @@ public class LoginController {
             responseDTO.setMessage("验证码有误");
             return responseDTO;
         } else {
-            User users = userService.get(user);
+            User users = userService.getSys(user);
             if (users != null) {
                 responseDTO.setCode(LoginConstant.LOGINSUCCESS);
                 responseDTO.setMessage("登录成功");

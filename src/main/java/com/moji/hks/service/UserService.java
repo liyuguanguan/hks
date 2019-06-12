@@ -12,5 +12,5 @@ public interface UserService {
 
     public int addUser(User user);
 
-    public User get(User user);
+    public User getSys(User user);
 }
