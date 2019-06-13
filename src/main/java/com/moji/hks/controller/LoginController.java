@@ -5,6 +5,7 @@ import com.moji.hks.mybaties.model.User;
 import com.moji.hks.service.UserService;
 import com.moji.hks.util.CodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,12 +13,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import com.moji.hks.dto.LoginResponseDTO;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *登录模块
  * @Author: liyu.guan
  * @Date: 2019/6/8 下午6:10
  */
+@RestController
 public class LoginController {
 
     @Autowired
@@ -44,4 +47,8 @@ public class LoginController {
             return responseDTO;
         }
     }
+
+
+
+
 }
